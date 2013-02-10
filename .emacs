@@ -1,58 +1,35 @@
 (server-start)
 
-;; ----------
-;; load-paths
-;; ----------
-(add-to-list 'load-path "~/.elisp/")
-(add-to-list 'load-path "~/.elisp/theme")
-(add-to-list 'load-path "~/.elisp/slime")
-(add-to-list 'load-path "~/.elisp/haskell-mode")
-(add-to-list 'load-path "~/.elisp/magit")
-(add-to-list 'load-path "~/.elisp/magit/contrib")
-(add-to-list 'load-path "~/.elisp/git-commit-mode")
-(add-to-list 'load-path "~/.elisp/clojure-mode")
-(add-to-list 'load-path "~/.elisp/org-mode/lisp")
-(add-to-list 'load-path "~/.elisp/yasnippet")
-(add-to-list 'load-path "~/.elisp/auto-complete/lib/popup")
-(add-to-list 'load-path "~/.elisp/auto-complete")
+;; ------
+;; el-get
+;; ------
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(require 'el-get)
 
-(add-to-list 'custom-theme-load-path "~/.elisp/eltbus-theme")
+(setq el-get-sources
+      '((:name eltbus-theme
+	 :type github
+	 :pkgname "ScriptDevil/eltbus-theme")))
 
-;; ---------
-;; Autoloads
-;; ---------
-(require 'whitespace)
-(require 'filladapt)
-(require 'tramp)
-(require 'slime)
-(require 'magit)
-(require 'magit-bisect)
-(require 'magit-simple-keys)
-(require 'git-commit)
-(require 'rebase-mode)
-(require 'paredit)
-(require 'clojure-mode)
-(require 'quack)
-(require 'inf-haskell)
-(require 'haskell-ghci)
-(require 'haskell-indent)
-(require 'haskell-doc)
-(require 'php-mode)
-(require 'cscope)
-(require 'csharp-mode)
-(require 'rcirc-controls)
+(setq my-packages
+      (append
+       '(el-get whitespace filladapt slime magit git-commit-mode paredit
+	 clojure-mode quack haskell-mode cscope csharp-mode auto-complete
+	 auto-complete-clang auto-complete-latex kivy-mode cython-mode
+	 mirah-mode yasnippet switch-window)
+       (mapcar 'el-get-source-name el-get-sources)))
+
+(el-get-cleanup my-packages)
+(el-get 'sync my-packages)
+
+;; --------
+;; requires
+;; --------
 (require 'windmove)
 (require 'framemove)
 (require 'winner)
 (require 'uniquify)
 (require 'nnmairix)
-(require 'edit-server)
-(require 'kivy-mode)
-(require 'cython-mode)
-(require 'mirah-mode)
-(require 'yasnippet)
-(require 'auto-complete-config)
-
 ;; ----------------
 ;; auto-mode-alists
 ;; ----------------
